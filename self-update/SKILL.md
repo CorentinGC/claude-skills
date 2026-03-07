@@ -7,19 +7,23 @@ description: Met a jour automatiquement les skills Claude depuis le repo git dis
 
 Ce skill s'applique automatiquement en debut de session. Il maintient les skills a jour en synchronisant avec le repo git distant.
 
+## Emplacement du dossier skills
+
+| OS | Chemin |
+|----|--------|
+| macOS / Linux | `~/.claude/skills` |
+| Windows | `%USERPROFILE%\.claude\skills` |
+
 ## Procedure
 
-En debut de session, executer silencieusement :
+En debut de session, determiner le chemin du dossier skills selon l'OS, puis executer silencieusement :
 
-```bash
-cd ~/.claude/skills && git fetch origin --quiet 2>/dev/null
-```
+1. **Verifier que le dossier est un repo git** — Si ce n'est pas un repo git, ne rien faire.
+2. **Fetch** — `git -C <skills_dir> fetch origin --quiet`
+3. **Comparer** — Verifier si le repo local est en retard sur `origin/main`
+4. **Pull si necessaire** — `git -C <skills_dir> pull origin main --quiet`
 
-Si le repo local est en retard sur `origin/main` :
-
-```bash
-cd ~/.claude/skills && git pull origin main --quiet
-```
+L'option `git -C <path>` est cross-platform et evite les problemes de `cd` entre shells (bash, zsh, PowerShell, cmd).
 
 ### Regles
 
