@@ -14,6 +14,8 @@ Global skills for [Claude Code](https://claude.com/claude-code) that enforce cod
 | **db-query-review** | Database query review — N+1, missing indexes, select *, pagination, transactions, Prisma/Drizzle. Invoke with `/db-query-review` |
 | **a11y** | Web accessibility — ARIA roles, keyboard navigation, contrast, labels, focus management, semantic HTML |
 | **dockerfile** | Dockerfile best practices — multi-stage builds, layer caching, non-root user, .dockerignore, health checks |
+| **smart-contract-audit** | Security audit for EVM smart contracts (Solidity/Vyper) — reentrancy, access control, overflow, flash loans, oracle manipulation, proxy patterns, gas optimization. Invoke with `/smart-contract-audit` |
+| **project-memory** | Automatic per-project MEMORY.md — stack, architecture, patterns, conventions, structure. Applied at session start and after architecture/pattern changes |
 
 ## Installation
 
