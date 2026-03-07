@@ -341,4 +341,30 @@ Produire un rapport structure :
 - ...
 ```
 
-Proposer des correctifs pour les problemes CRITICAL et HIGH. Demander confirmation a l'utilisateur avant de modifier la logique metier du contrat.
+## Plan d'actions post-audit
+
+Apres le rapport, proposer un **plan d'actions priorise** :
+
+1. Lister tous les correctifs a appliquer, tries par severite (CRITICAL > HIGH > MEDIUM > LOW > GAS).
+2. Pour chaque correctif, indiquer : contrat/fonction concerne(s), description courte du fix, effort estime (trivial / modere / complexe).
+3. Demander confirmation a l'utilisateur avant de commencer les corrections.
+
+## Commits separes
+
+Chaque correctif doit etre commite **individuellement** :
+
+- Un commit par probleme corrige (ne pas regrouper plusieurs fixes dans un seul commit).
+- Format du message de commit :
+  ```
+  fix(security): [SEVERITY] description courte du fix
+
+  Corrige le probleme [titre du probleme] detecte lors de l'audit de securite.
+  - Contrat : ContractName.sol
+  - Fonction : functionName()
+  - Impact : description de l'impact
+
+  Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+  ```
+- Commiter dans l'ordre de severite : CRITICAL d'abord, puis HIGH, MEDIUM, LOW, GAS.
+- Verifier que chaque fix compile (`forge build` ou `hardhat compile`) avant de commiter.
+- Ne pas modifier la logique metier du contrat sans confirmation explicite de l'utilisateur.

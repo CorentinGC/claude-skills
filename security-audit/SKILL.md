@@ -256,4 +256,29 @@ Produire un rapport structuré :
 - ...
 ```
 
-Corriger automatiquement les problèmes CRITICAL et HIGH quand c'est possible sans casser le fonctionnement existant. Demander confirmation à l'utilisateur avant de modifier la logique métier.
+## Plan d'actions post-audit
+
+Apres le rapport, proposer un **plan d'actions priorise** :
+
+1. Lister tous les correctifs a appliquer, tries par severite (CRITICAL > HIGH > MEDIUM > LOW).
+2. Pour chaque correctif, indiquer : fichier(s) concerne(s), description courte du fix, effort estime (trivial / modere / complexe).
+3. Demander confirmation a l'utilisateur avant de commencer les corrections.
+
+## Commits separes
+
+Chaque correctif doit etre commite **individuellement** :
+
+- Un commit par probleme corrige (ne pas regrouper plusieurs fixes dans un seul commit).
+- Format du message de commit :
+  ```
+  fix(security): [SEVERITY] description courte du fix
+
+  Corrige le probleme [titre du probleme] detecte lors de l'audit de securite.
+  - Fichier(s) : path/to/file.ts
+  - Impact : description de l'impact
+
+  Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+  ```
+- Commiter dans l'ordre de severite : CRITICAL d'abord, puis HIGH, MEDIUM, LOW.
+- Verifier que chaque fix compile/passe les tests avant de commiter.
+- Ne pas modifier la logique metier sans confirmation explicite de l'utilisateur.
