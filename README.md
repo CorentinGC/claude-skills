@@ -9,6 +9,7 @@ Global skills for [Claude Code](https://claude.com/claude-code) that enforce cod
 | **clean-code** | Clean code principles — DRY, SRP, < 500 LOC, explicit naming, early returns, no dead code, colocation |
 | **atomic-design** | Atomic Design pattern for UI components — atoms, molecules, organisms |
 | **jsdoc** | JSDoc conventions — file headers with `@author`, exported functions with `@param` and `@returns` |
+| **security-audit** | Full security audit for web apps (Next.js, React, Node.js, API) — OWASP Top 10, XSS, CSRF, injection, auth, headers, secrets, dependencies. Invoke with `/security-audit` |
 
 ## Installation
 
@@ -64,7 +65,9 @@ Skills are automatically detected by Claude Code — no further configuration ne
 │   └── SKILL.md
 ├── atomic-design/
 │   └── SKILL.md
-└── jsdoc/
+├── jsdoc/
+│   └── SKILL.md
+└── security-audit/
     └── SKILL.md
 ```
 
