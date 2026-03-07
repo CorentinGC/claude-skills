@@ -12,19 +12,46 @@ Global skills for [Claude Code](https://claude.com/claude-code) that enforce cod
 
 ## Installation
 
-Clone this repo into your Claude Code global skills directory:
+### Skills directory location
+
+The skills directory depends on your environment and OS:
+
+| Environment | macOS | Linux | Windows |
+|-------------|-------|-------|---------|
+| **Claude Code (CLI)** | `~/.claude/skills/` | `~/.claude/skills/` | `%USERPROFILE%\.claude\skills\` |
+| **VS Code extension** | `~/.claude/skills/` | `~/.claude/skills/` | `%USERPROFILE%\.claude\skills\` |
+| **Cursor extension** | `~/.claude/skills/` | `~/.claude/skills/` | `%USERPROFILE%\.claude\skills\` |
+
+> All environments share the same global skills directory — install once, available everywhere.
+
+### macOS / Linux
 
 ```bash
-# Remove existing skills directory if needed, then clone
+# Fresh install
 git clone git@github.com:CorentinGC/claude-skills.git ~/.claude/skills
-```
 
-Or if you already have a `~/.claude/skills/` directory with other content:
-
-```bash
-# Clone somewhere temporary and copy
+# If you already have a ~/.claude/skills/ directory
 git clone git@github.com:CorentinGC/claude-skills.git /tmp/claude-skills
 cp -r /tmp/claude-skills/*/ ~/.claude/skills/
+rm -rf /tmp/claude-skills
+```
+
+### Windows (PowerShell)
+
+```powershell
+# Fresh install
+git clone git@github.com:CorentinGC/claude-skills.git "$env:USERPROFILE\.claude\skills"
+
+# If you already have a skills directory
+git clone git@github.com:CorentinGC/claude-skills.git "$env:TEMP\claude-skills"
+Copy-Item -Recurse "$env:TEMP\claude-skills\*" "$env:USERPROFILE\.claude\skills\" -Exclude ".git"
+Remove-Item -Recurse -Force "$env:TEMP\claude-skills"
+```
+
+### Windows (Git Bash / WSL)
+
+```bash
+git clone git@github.com:CorentinGC/claude-skills.git ~/.claude/skills
 ```
 
 Skills are automatically detected by Claude Code — no further configuration needed.
