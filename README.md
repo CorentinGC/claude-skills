@@ -10,6 +10,10 @@ Global skills for [Claude Code](https://claude.com/claude-code) that enforce cod
 | **atomic-design** | Atomic Design pattern for UI components — atoms, molecules, organisms |
 | **jsdoc** | JSDoc conventions — file headers with `@author`, exported functions with `@param` and `@returns` |
 | **security-audit** | Full security audit for web apps (Next.js, React, Node.js, API) — OWASP Top 10, XSS, CSRF, injection, auth, headers, secrets, dependencies. Invoke with `/security-audit` |
+| **perf-audit** | Web performance audit — bundle size, lazy loading, memoization, images, Core Web Vitals, Server vs Client Components. Invoke with `/perf-audit` |
+| **db-query-review** | Database query review — N+1, missing indexes, select *, pagination, transactions, Prisma/Drizzle. Invoke with `/db-query-review` |
+| **a11y** | Web accessibility — ARIA roles, keyboard navigation, contrast, labels, focus management, semantic HTML |
+| **dockerfile** | Dockerfile best practices — multi-stage builds, layer caching, non-root user, .dockerignore, health checks |
 
 ## Installation
 
@@ -67,7 +71,15 @@ Skills are automatically detected by Claude Code — no further configuration ne
 │   └── SKILL.md
 ├── jsdoc/
 │   └── SKILL.md
-└── security-audit/
+├── security-audit/
+│   └── SKILL.md
+├── perf-audit/
+│   └── SKILL.md
+├── db-query-review/
+│   └── SKILL.md
+├── a11y/
+│   └── SKILL.md
+└── dockerfile/
     └── SKILL.md
 ```
 
