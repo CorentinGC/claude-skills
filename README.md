@@ -16,6 +16,7 @@ Global skills for [Claude Code](https://claude.com/claude-code) that enforce cod
 | **dockerfile** | Dockerfile best practices — multi-stage builds, layer caching, non-root user, .dockerignore, health checks |
 | **smart-contract-audit** | Security audit for EVM smart contracts (Solidity/Vyper) — reentrancy, access control, overflow, flash loans, oracle manipulation, proxy patterns, gas optimization. Invoke with `/smart-contract-audit` |
 | **project-memory** | Automatic per-project MEMORY.md — stack, architecture, patterns, conventions, structure. Applied at session start and after architecture/pattern changes |
+| **beads** | Workflow quotidien beads (bd) — detection automatique dans les projets `.beads/`, claim/create/close de taches. Remplace `TodoWrite` |
 | **beads-setup** | Installe et configure beads (bd + dolt) — issue tracker graphique pour agents IA. Invoke avec `/beads-setup` |
 
 ## Installation
