@@ -1,6 +1,6 @@
 ---
 name: project-setup
-description: Amorce un projet proprement — interview du projet, génère CLAUDE.md (code propre + règles spécifiques), /docs + llms.txt (doc tenue à jour), MEMORY.md (mémoire de travail), agents projet suggérés (model optimisé), config MCP (.mcp.json + chrome-devtools dédié), et impose la parallélisation des subagents (5-10). Invoquer avec /project-setup.
+description: Amorce un projet proprement — interview du projet, génère CLAUDE.md + AGENTS.md (code propre + règles agent : doc officielle d'abord, installateurs officiels + dernière version), /docs + llms.txt (doc tenue à jour), MEMORY.md (mémoire de travail), agents projet suggérés (model optimisé), config MCP (.mcp.json + chrome-devtools dédié), et impose la parallélisation des subagents (5-10). Invoquer avec /project-setup.
 user-invocable: true
 argument-hint: [chemin?]
 ---
@@ -17,7 +17,7 @@ Amorce un projet (neuf ou existant) avec une config agent complète et cohérent
 |-------|---------|
 | 0 | Détection auto du projet (stack, domaines, existant) |
 | 1 | Interview ciblé (uniquement le non-détectable) |
-| 2 | `CLAUDE.md` (code propre + règles spécifiques + parallélisation) |
+| 2 | `CLAUDE.md` + `AGENTS.md` (code propre + règles agent + parallélisation) |
 | 3 | `docs/` + `llms.txt` (doc structurée, indexée) |
 | 4 | `MEMORY.md` (mémoire de travail) |
 | 5 | Agents projet `.claude/agents/` (model optimisé) |
@@ -37,6 +37,8 @@ En déduire : runtime, framework, langage, ORM/DB, auth, et les **domaines** act
 
 > Si `CLAUDE.md`, `docs/`, `MEMORY.md` ou `.mcp.json` existent déjà : passer en **mode merge** (proposer des ajouts, ne jamais remplacer un fichier sans confirmation explicite).
 
+> **Projet vide** (aucun manifest détecté) : proposer de scaffolder via l'**installateur officiel à la dernière version** (ex. `npx create-next-app@latest`, `npm create vite@latest`, `forge init`, `cargo new`) **avant** de générer la config. Confirmer outil + version avec l'utilisateur (vérifier la version courante : `npm view <pkg> version`).
+
 ---
 
 ## Phase 1 — Interview (AskUserQuestion, ≤4 questions/appel)
@@ -52,14 +54,16 @@ Pré-remplir avec la détection. Ne poser que l'utile. Sujets à couvrir (regrou
 
 ---
 
-## Phase 2 — Générer `CLAUDE.md`
+## Phase 2 — Générer `CLAUDE.md` + `AGENTS.md`
 
-Créer (ou proposer un merge) à la racine. Remplir les `{{placeholders}}` depuis détection + interview. Omettre les sections non pertinentes.
+Créer (ou proposer un merge) à la racine. `CLAUDE.md` inclut `AGENTS.md` via `@AGENTS.md`. Remplir les `{{placeholders}}` depuis détection + interview. Omettre les sections non pertinentes.
 
 ````markdown
 # {{Nom du projet}} — Guide agent
 
-> Lis ce fichier, `MEMORY.md` et `llms.txt` **avant** toute tâche de code.
+@AGENTS.md
+
+> Lis ce fichier, `AGENTS.md`, `MEMORY.md` et `llms.txt` **avant** toute tâche de code.
 
 ## Stack
 {{Runtime}} · {{Framework}} · {{Langage}} · {{ORM/DB}} · {{Auth}} · {{Autres libs structurantes}}
@@ -114,7 +118,33 @@ Pour tout travail décomposable, **lancer 5 à 10 subagents en parallèle** (une
 - `bd ready --json` en début de tâche ; `bd update <id> --claim` avant de travailler ; `bd close <id>` à la fin. Remplace `TodoWrite`.
 
 ## Pointeurs
-- `llms.txt` — index de la doc · `docs/` — doc détaillée · `MEMORY.md` — mémoire de travail · `.mcp.json` — serveurs MCP.
+- `AGENTS.md` — règles agent · `llms.txt` — index de la doc · `docs/` — doc détaillée · `MEMORY.md` — mémoire de travail · `.mcp.json` — serveurs MCP.
+````
+
+Puis générer `AGENTS.md` — règles **destinées aux agents IA** (standard multi-outils : Claude Code, Cursor…), inclus par `CLAUDE.md` :
+
+````markdown
+# AGENTS.md — {{Nom du projet}}
+
+Règles pour les agents IA. Inclus par `CLAUDE.md` (`@AGENTS.md`).
+
+## Lire la doc officielle avant de coder
+- Tes données d'entraînement peuvent être périmées — la doc officielle/locale fait foi.
+- Avant toute tâche touchant une lib structurante ({{Framework}}, {{ORM}}, {{libs}}…), lire sa doc : `node_modules/<lib>/docs/` ou le `llms.txt` du package si présents, sinon la doc en ligne via le MCP `context7`.
+
+## Outillage : installateurs officiels + dernière version
+- **Privilégier les installateurs/scaffolders officiels** plutôt que d'écrire la structure à la main : `create-next-app`, `npm create vite@latest`, `create-t3-app`, `forge init`, `cargo new`, etc.
+- **Toujours la dernière version stable** (ex. **Next.js 16** actuellement). Vérifier la version courante avant d'installer (`npm view <pkg> version`, doc officielle, ou `context7`) — ne pas se fier à la mémoire.
+- Préférer une dépendance maintenue à une réimplémentation maison, sauf raison explicite documentée.
+
+## Conventions non négociables
+{{- Convention lib/framework (ex: imports via subpath ; Server Components par défaut ; pas de memo si React Compiler).}}
+{{- Sécurité/permissions spécifiques (ex: gating systématique des Server Actions / routes).}}
+
+## Workflow
+- Lire `MEMORY.md` + `llms.txt` avant de coder ; mettre à jour `MEMORY.md` après chaque edit.
+- Paralléliser le travail indépendant (5–10 subagents) — cf. `CLAUDE.md`.
+- Jamais de commit/push sans validation explicite ; respecter lint/build/tests du projet.
 ````
 
 ---
@@ -262,7 +292,7 @@ tools: Read, Grep, Glob{{, Edit, Write, Bash}}
 
 ## Phase 7 — Récap
 
-Afficher un résumé : fichiers créés/mergés (`CLAUDE.md`, `docs/`, `llms.txt`, `MEMORY.md`, `.mcp.json`, agents), MCP et agents activés, et les prochaines actions (`/security-review`, `/code-review ultra`, `/db-query-review`, `bd ready` si beads). Rappeler de redémarrer la session pour charger les MCP.
+Afficher un résumé : fichiers créés/mergés (`CLAUDE.md`, `AGENTS.md`, `docs/`, `llms.txt`, `MEMORY.md`, `.mcp.json`, agents), MCP et agents activés, et les prochaines actions (`/security-review`, `/code-review ultra`, `/db-query-review`, `bd ready` si beads). Rappeler de redémarrer la session pour charger les MCP.
 
 ## Rappels
 

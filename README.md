@@ -7,6 +7,7 @@ Global skills for [Claude Code](https://claude.com/claude-code) that enforce cod
 | Skill | Description |
 |-------|-------------|
 | **project-setup** | Bootstrap a project — interview, generate CLAUDE.md (clean code + project rules), `docs/` + `llms.txt`, MEMORY.md (working memory), suggested project agents (optimized `model`), MCP config (`.mcp.json` + dedicated chrome-devtools), and enforce 5–10 parallel subagents. Invoke with `/project-setup` |
+| **pr** | Create a PR (head → base) if none exists, else re-review the open one — applying the local project rules (CLAUDE.md, llms.txt, docs, agents). Quality/security/perf review + prioritized fix plan. Invoke with `/pr` |
 | **clean-code** | Clean code principles — DRY, SRP, < 500 LOC, explicit naming, early returns, no dead code, colocation |
 | **atomic-design** | Atomic Design pattern for UI components — atoms, molecules, organisms |
 | **jsdoc** | JSDoc conventions — file headers with `@author`, exported functions with `@param` and `@returns` |
