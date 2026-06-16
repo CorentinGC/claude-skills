@@ -6,16 +6,16 @@ Global skills for [Claude Code](https://claude.com/claude-code) that enforce cod
 
 | Skill | Description |
 |-------|-------------|
+| **project-setup** | Bootstrap a project — interview, generate CLAUDE.md (clean code + project rules), `docs/` + `llms.txt`, MEMORY.md (working memory), suggested project agents (optimized `model`), MCP config (`.mcp.json` + dedicated chrome-devtools), and enforce 5–10 parallel subagents. Invoke with `/project-setup` |
 | **clean-code** | Clean code principles — DRY, SRP, < 500 LOC, explicit naming, early returns, no dead code, colocation |
 | **atomic-design** | Atomic Design pattern for UI components — atoms, molecules, organisms |
 | **jsdoc** | JSDoc conventions — file headers with `@author`, exported functions with `@param` and `@returns` |
-| **security-audit** | Full security audit for web apps (Next.js, React, Node.js, API) — OWASP Top 10, XSS, CSRF, injection, auth, headers, secrets, dependencies. Invoke with `/security-audit` |
 | **perf-audit** | Web performance audit — bundle size, lazy loading, memoization, images, Core Web Vitals, Server vs Client Components. Invoke with `/perf-audit` |
 | **db-query-review** | Database query review — N+1, missing indexes, select *, pagination, transactions, Prisma/Drizzle. Invoke with `/db-query-review` |
 | **a11y** | Web accessibility — ARIA roles, keyboard navigation, contrast, labels, focus management, semantic HTML |
 | **dockerfile** | Dockerfile best practices — multi-stage builds, layer caching, non-root user, .dockerignore, health checks |
 | **smart-contract-audit** | Security audit for EVM smart contracts (Solidity/Vyper) — reentrancy, access control, overflow, flash loans, oracle manipulation, proxy patterns, gas optimization. Invoke with `/smart-contract-audit` |
-| **project-memory** | Automatic per-project MEMORY.md — stack, architecture, patterns, conventions, structure. Applied at session start and after architecture/pattern changes |
+| **project-memory** | Per-project MEMORY.md as working memory — current state, next steps, recent decisions, gotchas. Read before coding, updated after each edit. Complements `docs/` + `llms.txt` (stable docs) |
 | **beads** | Workflow quotidien beads (bd) — detection automatique dans les projets `.beads/`, claim/create/close de taches. Remplace `TodoWrite` |
 | **beads-setup** | Installe et configure beads (bd + dolt) — issue tracker graphique pour agents IA. Invoke avec `/beads-setup` |
 
@@ -74,8 +74,6 @@ Skills are automatically detected by Claude Code — no further configuration ne
 ├── atomic-design/
 │   └── SKILL.md
 ├── jsdoc/
-│   └── SKILL.md
-├── security-audit/
 │   └── SKILL.md
 ├── perf-audit/
 │   └── SKILL.md
